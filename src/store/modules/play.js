@@ -18,7 +18,7 @@ export default{
         let formData = new FormData();
             formData.append('token', localStorage.getItem('token'));
             formData.append('id_room', id);
-            fetch('http://192.168.1.68:8000/api/v1/room/resualt',{
+            fetch('http://45.9.24.240:8000/api/v1/room/resualt',{
                     method: "POST",
                     body: formData,
                 }).then(res=>res.json()).then(data=>{
@@ -29,7 +29,7 @@ export default{
             let formData = new FormData();
             formData.append('token', localStorage.getItem('token'));
             formData.append('id_room', id);
-            fetch('http://192.168.1.68:8000/api/v1/room/res',{
+            fetch('http://45.9.24.240:8000/api/v1/room/res',{
                     method: "POST",
                     body: formData,
                 }).then(res=>res.json()).then(data=>{

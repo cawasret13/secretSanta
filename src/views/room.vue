@@ -121,7 +121,7 @@
                     <button v-on:click="add(this.$route.params.id)" class="btn_v" v-if="!getInfo['private'] && !getInfo['why']">Войти</button>
                     <button v-on:click="add(this.$route.params.id)" class="btn_v" v-if="(getInfo['private'] && !getInfo['why'])">Подать заявку</button>
                     <div v-if="share" class="address">
-                        <h4>localhost:8080/room/{{getInfo['id_room']}}</h4>
+                        <h4>45.9.24.240:8080/room/{{getInfo['id_room']}}</h4>
                     </div>
                     <div v-if="getInfo['nowPlayer'] != getInfo['maxHum']">
                         <button v-on:click="(setActiveIK(true))" class="share" v-if="(getInfo['created'] && getInfo['private'])">Список одобрения {{getInfo['oklen']>0?'( '+getInfo['oklen']+' )':''}}</button>
@@ -200,7 +200,7 @@ import { useToast } from "vue-toastification";
                 formData.append('token', localStorage.getItem('token'));
                 formData.append('id_room', this.$route.params.id);
                 formData.append('wish', this.wish);
-                fetch('http://192.168.1.68:8000/api/v1/room/wish',{
+                fetch('http://45.9.24.240:8000/api/v1/room/wish',{
                         method: "POST",
                         body: formData,
                     }).then(res=>res.json()).then(data=>{

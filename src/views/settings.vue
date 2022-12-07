@@ -29,7 +29,7 @@
                 location.replace('/')
             },
             getData(){
-                fetch('http://192.168.1.68:8000/api/v1/user/settings?token='+localStorage.getItem('token')).then(res=>res.json()).then(data => {
+                fetch('http://45.9.24.240:8000/api/v1/user/settings?token='+localStorage.getItem('token')).then(res=>res.json()).then(data => {
                     data = JSON.parse(data)
                     this.name=data['name']
                     this.surname=data['surname']
@@ -42,7 +42,7 @@
             formData.append('name', this.name);
             formData.append('surname', this.surname);
             formData.append('email', this.email);
-            fetch('http://192.168.1.68:8000/api/v1/room/my',{
+            fetch('http://45.9.24.240:8000/api/v1/room/my',{
                     method: "POST",
                     body: formData,
                 }).then(res=>res.json()).then(data=>{

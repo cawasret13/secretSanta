@@ -127,7 +127,7 @@ import { useToast } from "vue-toastification";
             let formData = new FormData();
                 formData.append('login', this.aLogin);
                 formData.append('password', this.aPassword);
-                fetch('http://192.168.1.68:8000/api/v1/user/authorization',{
+                fetch('http://45.9.24.240:8000/api/v1/user/authorization',{
                     method: "POST",
                     body: formData,
                 }).then(res=>res.json()).then(data=>{
@@ -149,7 +149,7 @@ import { useToast } from "vue-toastification";
                     formData.append('email', this.rEmail);
                     formData.append('login', this.rLogin);
                     formData.append('password', this.rPassword);
-                    fetch('http://192.168.1.68:8000/api/v1/user/create',{
+                    fetch('http://45.9.24.240:8000/api/v1/user/create',{
                         method: "POST",
                         body: formData,
                     }).then(res=>res.json()).then(data=>{

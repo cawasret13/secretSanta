@@ -42,7 +42,7 @@
             get(){
                 let formData = new FormData();
                 formData.append('token', localStorage.getItem('token'));
-                fetch('http://192.168.1.68:8000/api/v1/history',{
+                fetch('http://45.9.24.240:8000/api/v1/history',{
                         method: "POST",
                         body: formData,
                     }).then(res=>res.json()).then(data=>{

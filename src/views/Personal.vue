@@ -240,7 +240,7 @@ import { timeouts } from 'retry'
                 else formData.append('private', 0);
                 if (this.autoRes == true) formData.append('autoRes', this.autoRes);
                 else formData.append('autoRes', this.autoRes);
-                fetch('http://192.168.1.68:8000/api/v1/room/create',{
+                fetch('http://45.9.24.240:8000/api/v1/room/create',{
                     method: "POST",
                     body: formData,
                 }).then(res=>res.json()).then(data=>{
