@@ -25,7 +25,7 @@
                             <button v-on:click="(ch_icon = !ch_icon)" class="change"><img src="../assets/edit_square_FILL0_wght400_GRAD0_opsz48.svg" alt=""></button>
                             <div class="ls_icon">
                                 <h4 style="margin-top: 0;">Иконки</h4>
-                                <div style="height: 450px;overflow: scroll;border-radius: 13px;">
+                                <div style="height: 450px;overflow: scroll;border-radius: 13px;background-color: white;">
                                     <img v-for="icon in getIconsSet" :src="icon['image']" alt="" v-bind:class="(icon['id'] == this.getInfoSettings['id_icon']?'selectIcon':'iconRoomsSel')" v-on:click="selectIcon(icon['id'], icon['image'])">
                                 </div>
                             </div>
@@ -48,9 +48,9 @@
                             <h4 v-else-if="!ch_maxPrice">{{getInfoSettings["maxPrice"]}}</h4>
                             <button v-on:click="(ch_maxPrice = !ch_maxPrice)" class="change"><img src="../assets/edit_square_FILL0_wght400_GRAD0_opsz48.svg" alt=""></button>
                         </div>
-                        <div class="flex_line">
+                        <div class="flex_line icSet">
                             <p>Иконка комнаты:</p>
-                            <img :src="getInfoSettings['icon']" alt="">
+                            <img class="iconSettings" :src="getInfoSettings['icon']" alt="">
                             <button v-on:click="(ch_icon = !ch_icon)"  class="change"><img src="../assets/edit_square_FILL0_wght400_GRAD0_opsz48.svg" alt=""></button>
                         </div>
                         <div class="flex_line">
@@ -63,10 +63,6 @@
                             <p>Приватная комната:</p>
                             <input type="checkbox" v-model="getInfoSettings['private']" v-on:change="changePrivate(getInfoSettings['private'])">
                         </div>
-                        <!-- <div class="flex_line">
-                            <p>Авто игра:</p>
-                            <input type="checkbox" v-model="getInfoSettings['autoPlay']" v-on:change="changePlay(getInfoSettings['autoPlay'])">
-                        </div> -->
                     </div>
                     <button v-on:click="Save(this.$route.params.id)" class="save">Сохранить</button>
                     <button v-on:click="(ch_del = true)" class="delete">Удалить комнату</button>
@@ -80,57 +76,59 @@
         <div class="ogr_width">
             <div class="flex">
                 <div class="info_room">
+                    <div class="ww">
+                        <button v-if="getInfo['why']" v-on:click="(this.activeSettings = true)" class="settings_btn"><img src="../assets/cogwheel_icon-icons.com_70237.svg" alt=""></button>
 
-                    <button v-if="getInfo['why']" v-on:click="(this.activeSettings = true)" class="settings_btn"><img src="../assets/cogwheel_icon-icons.com_70237.svg" alt=""></button>
-
-                    <!-- <h3 class="name" style="margin-bottom: 0;">Информация</h3> -->
-                    <h3 class="name">{{getInfo['name']}}</h3>
-                    <div class="sIcon">
-                        <img :src="getInfo['icon']" alt="" class="icon">
-                    </div>
-                    <div class="subInfo">
-                        <p class="title_set">Описание:</p>
-                        <h4 class="description" style="margin-bottom: 15px;">
-                            {{getInfo['desc']}}
-                        </h4>
-                        <div class="flex_line">
-                            <p class="title_set">Игроков:</p>
-                            <h4 class="description">
-                                {{getInfo['nowPlayer']}}/{{getInfo['maxHum']}}
-                            </h4>
+                        <h3 class="name">{{getInfo['name']}}</h3>
+                        <div class="sIcon">
+                            <img :src="getInfo['icon']" alt="" class="icon">
                         </div>
-                        <div class="flex_line">
-                            <p class="title_set">Максимальная сумма подарка:</p>
-                            <h4 class="description">
-                                {{getInfo['maxPrice']}}₽
-                            </h4>
+                        <div class="subInfo">
+                            <div v-if="getInfo['desc'] != ''">
+                                <p class="title_set">Описание:</p>
+                                <h4 class="description" style="margin-bottom: 15px;">
+                                    {{getInfo['desc']}}
+                                </h4>
+                            </div>
+                            <div class="flex_line">
+                                <p class="title_set">Игроков:</p>
+                                <h4 class="description">
+                                    {{getInfo['nowPlayer']}}/{{getInfo['maxHum']}}
+                                </h4>
+                            </div>
+                            <div class="flex_line">
+                                <p class="title_set">Максимальная сумма подарка:</p>
+                                <h4 class="description">
+                                    {{getInfo['maxPrice']}}₽
+                                </h4>
+                            </div>
                         </div>
-                    </div>
-                    <div v-if="getInfo['why']">
-                        <p class="title_set">Что бы вы хотели получить?<button v-on:click="(J = !J)" class="change"><img src="../assets/edit_square_FILL0_wght400_GRAD0_opsz48.svg" alt=""></button></p>
-                        <div v-if="J" class="J">
-                            <input class="inpJ" type="text" v-model="wish">
-                            <button class="btnJ" v-on:click="wishSet">Это!</button>
+                        <div v-if="getInfo['why']">
+                            <p class="title_set">Что бы вы хотели получить?<button v-on:click="(J = !J)" class="change"><img src="../assets/edit_square_FILL0_wght400_GRAD0_opsz48.svg" alt=""></button></p>
+                            <div v-if="J" class="J">
+                                <input class="inpJ" type="text" v-model="wish">
+                                <button class="btnJ" v-on:click="wishSet">Это!</button>
+                            </div>
+                            <div v-else>
+                            <p class="title_set">Кажется это:</p>
+                            <p class="title_set">{{getInfo['wish']}}</p>
+                            </div>
                         </div>
-                        <div v-else>
-                           <p class="title_set">Кажется это:</p>
-                           <p class="title_set">{{getInfo['wish']}}</p>
+                        <button v-on:click="add(this.$route.params.id)" class="btn_v" v-if="!getInfo['private'] && !getInfo['why']">Войти</button>
+                        <button v-on:click="add(this.$route.params.id)" class="btn_v" v-if="(getInfo['private'] && !getInfo['why'])">Подать заявку</button>
+                        <div v-if="(getInfo['nowPlayer'] != getInfo['maxHum'] && getInfo['why'])" class="ss_">
+                            <button v-if="getInfo['why'] && getInfo['nowPlayer'] != getInfo['maxHum']" v-on:click="(share = !share)" class="share">Поделиться</button>
+                            <button v-on:click="(setActiveIK(true))" class="share" v-if="(getInfo['created'] && getInfo['private'])">Список одобрения<span class="push_nam" v-if="(getInfo['oklen']>0)">{{getInfo['oklen']}}</span></button>
                         </div>
-                    </div>
-                    <button v-if="getInfo['why'] && getInfo['nowPlayer'] != getInfo['maxHum']" v-on:click="(share = !share)" class="share">Поделиться</button>
-                    <button v-on:click="add(this.$route.params.id)" class="btn_v" v-if="!getInfo['private'] && !getInfo['why']">Войти</button>
-                    <button v-on:click="add(this.$route.params.id)" class="btn_v" v-if="(getInfo['private'] && !getInfo['why'])">Подать заявку</button>
-                    <div v-if="share" class="address">
-                        <h4>45.9.24.240:8080/room/{{getInfo['id_room']}}</h4>
-                    </div>
-                    <div v-if="getInfo['nowPlayer'] != getInfo['maxHum']">
-                        <button v-on:click="(setActiveIK(true))" class="share" v-if="(getInfo['created'] && getInfo['private'])">Список одобрения {{getInfo['oklen']>0?'( '+getInfo['oklen']+' )':''}}</button>
-                    </div>
-                    <div v-if="(getInfo['nowPlayer'] == getInfo['maxHum'] && getInfo['created'])">
-                        <button v-on:click="start(this.$route.params.id)" class="start_play">Начать игру</button>
-                    </div>
-                    <div v-if="(getInfo['nowPlayer'] == getInfo['maxHum'] && !getInfo['created'])">
-                        <h5>Все игроки на месте, скоро начало 🎅🎇🎉</h5>
+                        <div v-if="share" class="address">
+                            <h4>45.9.24.240:8080/room/{{getInfo['id_room']}}</h4>
+                        </div>
+                        <div v-if="(getInfo['nowPlayer'] == getInfo['maxHum'] && getInfo['created'])">
+                            <button v-on:click="start(this.$route.params.id)" class="start_play">Начать игру</button>
+                        </div>
+                        <div v-if="(getInfo['nowPlayer'] == getInfo['maxHum'] && !getInfo['created'])">
+                            <h5>Все игроки на месте, скоро начало 🎅🎇🎉</h5>
+                        </div>
                     </div>
                 </div>
                 <div class="users">
@@ -178,7 +176,7 @@ import { useToast } from "vue-toastification";
         },
         computed:mapGetters(['getInfo', 'getInfoSettings', 'getIconsSet', 'getActiveOk']),
         methods:{
-            ...mapActions(['Room', 'images', 'Save', 'Delete', 'add', 'exit', 'start']),
+            ...mapActions(['Room', 'images', 'Save', 'Delete', 'add', 'exit', 'start', ]),
             ...mapMutations(['setIcon', 'setPrivate', 'setPlay', 'setActiveIK']),
             changePrivate(status){
                 this.setPrivate(status)

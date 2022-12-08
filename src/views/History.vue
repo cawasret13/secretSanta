@@ -14,6 +14,7 @@
                                     (room['name'].length > 16)?room['name'].slice(0, 16)+'...':room['name']
                                     }}</h2>
                                 <h2 class="name_room" style="color:#ddd;">{{room['nowPlayer']}}{{room['maxHum']}}</h2>
+                                <h2 class="name_room" style="color:#ddd;">{{room['date']}}</h2>
                             </div>
                             <div v-if="room['private'] == true" style="width: 100%;height: 30%;">
                                 <div  style="width: 100%;height: 100%;display: inline-flex;">

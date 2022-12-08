@@ -9,7 +9,8 @@ export default{
         listPlay:[],
 
         activeOk: false,
-        play:[]
+        play:[],
+        url_server: '45.9.24.240'
     },
     getters: {
       getInfo(state){
@@ -58,7 +59,7 @@ export default{
             let formData = new FormData();
             formData.append('token', localStorage.getItem('token'));
             formData.append('id', id);
-            fetch('http://45.9.24.240:8000/api/v1/room/show',{
+            fetch(`http://${ctx.state.url_server}:8000/api/v1/room/show`,{
                     method: "POST",
                     body: formData,
                 }).then(res=>res.json()).then(data=>{
@@ -67,7 +68,7 @@ export default{
                 })
         },
         async images(ctx){
-              fetch('http://45.9.24.240:8000/api/v1/room/images',{
+              fetch(`http://${ctx.state.url_server}:8000/api/v1/room/images`,{
             }).then(res=>res.json()).then(data=>{
               ctx.state.icons = JSON.parse(data)
             })
@@ -77,7 +78,7 @@ export default{
           formData.append('token', localStorage.getItem('token'));
           formData.append('id', id);
           formData.append('data', JSON.stringify(ctx.state.info_settings));
-          fetch('http://45.9.24.240:8000/api/v1/room/settings',{
+          fetch(`http://${ctx.state.url_server}:8000/api/v1/room/settings`,{
                   method: "POST",
                   body: formData,
               }).then(res=>res.json()).then(data=>{
@@ -88,7 +89,7 @@ export default{
           let formData = new FormData();
           formData.append('token', localStorage.getItem('token'));
           formData.append('id', id);
-          fetch('http://45.9.24.240:8000/api/v1/room/delete',{
+          fetch(`http://${ctx.state.url_server}:8000/api/v1/room/delete`,{
                   method: "POST",
                   body: formData,
               }).then(res=>res.json()).then(data=>{
@@ -98,7 +99,7 @@ export default{
         async listPlayers(ctx, id){
           let formData = new FormData();
           formData.append('id', id);
-          fetch('http://45.9.24.240:8000/api/v1/room/players',{
+          fetch(`http://${ctx.state.url_server}:8000/api/v1/room/players`,{
                   method: "POST",
                   body: formData,
               }).then(res=>res.json()).then(data=>{
@@ -108,7 +109,7 @@ export default{
         async Play(ctx){
           let formData = new FormData();
           formData.append('token', localStorage.getItem('token'));
-          fetch('http://45.9.24.240:8000/api/v1/room/play',{
+          fetch(`http://${ctx.state.url_server}:8000/api/v1/room/play`,{
                   method: "POST",
                   body: formData,
               }).then(res=>res.json()).then(data=>{
@@ -119,7 +120,7 @@ export default{
           let formData = new FormData();
           formData.append('token', localStorage.getItem('token'));
           formData.append('id_room', id);
-          fetch('http://45.9.24.240:8000/api/v1/room/add',{
+          fetch(`http://${ctx.state.url_server}:8000/api/v1/room/add`,{
                   method: "POST",
                   body: formData,
               }).then(res=>res.json()).then(data=>{
@@ -132,7 +133,7 @@ export default{
               })
         },
         async listOK(ctx, id_room){
-            fetch('http://45.9.24.240:8000/api/v1/room/listOK?id_room='+ id_room).then(res=>res.json()).then(data=>{
+            fetch(`http://${ctx.state.url_server}:8000/api/v1/room/listOK?id_room=`+ id_room).then(res=>res.json()).then(data=>{
               let a = JSON.parse(data)
               ctx.state.play = a
             }
@@ -146,7 +147,7 @@ export default{
           formData.append('status', data[1]);
           formData.append('id', data[2]);
           let st = 0
-          fetch('http://45.9.24.240:8000/api/v1/room/listOK',{
+          fetch(`http://${ctx.state.url_server}:8000/api/v1/room/listOK`,{
                   method: "POST",
                   body: formData,
               }).then(res=>{
@@ -163,7 +164,7 @@ export default{
           formData.append('token', localStorage.getItem('token'));
           formData.append('id_room', id);
           let st = 0
-          fetch('http://45.9.24.240:8000/api/v1/room/exit',{
+          fetch(`http://${ctx.state.url_server}:8000/api/v1/room/exit`,{
                   method: "POST",
                   body: formData,
               }).then(res=>{
@@ -179,14 +180,20 @@ export default{
           formData.append('token', localStorage.getItem('token'));
           formData.append('id_room', id);
           let st = 0
-          fetch('http://45.9.24.240:8000/api/v1/room/start',{
+          fetch(`http://${ctx.state.url_server}:8000/api/v1/room/start`,{
                   method: "POST",
                   body: formData,
               }).then(res=>{
                 return res.json()
               }).then(response=>{
-                  alert(response)
+                  const push = useToast()
+                  push.success(response)
               })
+        },
+        setStatus(ctx, id){
+          fetch(`http://${ctx.state.url_server}:8000/api/v1/room/status?token=${localStorage.getItem('token')}&id_room=${id}`).then(res=>res.json()).then(data=>{
+            console.log(data)
+          })
         }
     },
 }

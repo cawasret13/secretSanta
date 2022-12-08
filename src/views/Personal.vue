@@ -13,26 +13,30 @@
             <input v-model="maxPrice" type="text" placeholder="Макс. стоимость подарка">
             <p v-if="autoRes == false" style="margin: 0;">Дата результатов</p>
             <input v-if="autoRes == false" v-model="date" type="date">
-            <!-- <div style="display: inline-flex;align-items: center;height: 20px;margin-bottom: 5px;">
-                <input v-model="autoRes" type="checkbox" style="padding: 0;box-shadow: none;width: 5%;">
-                <p style="margin: 0;">Без авто результата</p>
-            </div> -->
             <div style="display: inline-flex;align-items: center;height: 20px;">
                 <input v-model="private" type="checkbox" style="padding: 0;box-shadow: none;width: 5%;">
                 <p style="margin: 0;">Приватная комната</p>
             </div>
             <div class="ctr_formPop">
-                <button v-on:click="closeCreate()" style="width: 28%;margin: 1%;color: white;height: 40px;border: 0;border-radius: 7px;cursor: pointer;font-family: 'Didact Gothic', sans-serif ;background: linear-gradient(to bottom right, #ff0000a1, #ff2323);">Отмена</button>
-                <button v-on:click="addRoom()" style="width: 68%;margin: 1%;color: white;height: 40px;border: 0;border-radius: 7px;cursor: pointer;font-family: 'Didact Gothic', sans-serif ;background: linear-gradient(to bottom right, #F2B441, #ffa887);">Создать</button>
+                <button v-on:click="closeCreate()" style="width: 28%;margin: 1%;color: white;height: 40px;border: 0px;border-radius: 7px;cursor: pointer;font-family: 'Didact Gothic', sans-serif;background: linear-gradient(to right bottom, #e55039, #eb2f06);font-size: 16px;">Отмена</button>
+                <button v-on:click="addRoom()" style="width: 68%;margin: 1%;color: white;height: 40px;border: 0px;border-radius: 7px;cursor: pointer;font-family: 'Didact Gothic', sans-serif;background: linear-gradient(to right bottom, #b8e994, #78e08f);font-size: 16px;">Создать</button>
             </div>
         </div>
     </div>
     <div>
         <hed />
     </div>
+    <div class="mobile_place_holder">
+            <a href="/history">
+                <div class="place_holder">
+                    <h1 class="place_holder_text">История</h1>
+                    <h3 class="place_holder_text_desc">Не забудь подарить подарок</h3>
+                </div>
+            </a>
+    </div>
   <div class="ogr_rooms">
         <div class="myRooms">
-            <div v-if="(getMyRooms.length != 0)">
+            <div v-if="(getMyRooms.length != 0)" style="display: flex;flex-direction: column;">
                 <div class="controll_panel">
                     <h2>Ваши комнаты</h2>
                     <button class="btn_create" v-on:click="openCreate">Создать комнату</button>
@@ -51,6 +55,11 @@
                             <div class="room" style="padding: 3%;">
                                 <div class="icon_room">
                                     <img :src="room['icon']" alt="">
+                                    <div class="push">
+                                        <span v-if="(room['nowPlayer'] == room['maxHum'])" class="man"><img src="../assets/free-icon-font-users-alt-5069169.svg" alt=""></span>
+                                        <span v-if="(room['play'])" class="man"><img src="../assets/play.svg" alt=""></span>
+                                        <span v-if="(room['push'] > 0)" class="man"><img src="../assets/push.svg" alt=""></span>
+                                    </div>
                                 </div>
                                 <div class="information_room">
                                     <div class="cell_info">
@@ -78,6 +87,11 @@
                     <div class="room cell_siper" style="padding: 3%;" v-for="room in getMyRooms">
                         <div class="icon_room">
                             <img :src="room['icon']" alt="">
+                            <div class="push">
+                                        <span v-if="(room['nowPlayer'] == room['maxHum'])" class="man"><img src="../assets/free-icon-font-users-alt-5069169.svg" alt=""></span>
+                                        <span v-if="(room['play'])" class="man"><img src="../assets/play.svg" alt=""></span>
+                                        <span v-if="(room['push'] > 0)" class="man"><img src="../assets/push.svg" alt=""></span>
+                                    </div>
                         </div>
                         <div class="information_room">
                             <div class="cell_info">
@@ -107,12 +121,18 @@
                     <button v-on:click="openCreate" class="btn_create">Создать комнату</button>
                 </div>
             </div>
-            <div v-if="(getPlay.length != 0)">
-                <h2>Ваши игры</h2>
+            <div v-if="(getPlay.length != 0)" style="display: flex;flex-direction: column;">
+                <div class="controll_panel">
+                    <h2>Ваши игры</h2>
+                </div>
                 <div class="listRooms">
                         <div class="room" v-for="room in getPlay">
                             <div class="icon_room">
                                 <img :src="room['icon']" alt="">
+                                <div class="push">
+                                    <span v-if="((room['nowPlayer'] == room['maxHum']) && !room['play'])" class="man"><img src="../assets/free-icon-font-users-alt-5069169.svg" alt=""></span>
+                                    <span v-if="(room['play'])" class="man"><img src="../assets/play.svg" alt=""></span>
+                                </div>
                             </div>
                             <div class="information_room">
                                 <div class="cell_info">
@@ -136,8 +156,10 @@
                         </div>
                 </div>
             </div>
-            <div v-if="(getRooms.length != 0)">
-                <h2>Другие комнаты</h2>
+            <div v-if="(getRooms.length != 0)" style="display: flex;flex-direction: column;">
+                <div class="controll_panel">
+                    <h2>Другие комнаты</h2>
+                </div>
                 <div class="listRoomsNoMy">
                         <div class="room noMyRoom" v-for="room in getRooms">
                             <div class="icon_room">

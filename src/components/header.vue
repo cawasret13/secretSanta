@@ -21,7 +21,8 @@
         </div>
 </template>
 <script>
-    import { mapGetters } from 'vuex';
+    import { useToast } from 'vue-toastification';
+import { mapGetters } from 'vuex';
     export default{
         computed:mapGetters(['getInfo']),
         data(){
@@ -38,7 +39,14 @@
                         method: "POST",
                         body: formData,
                     }).then(res=>res.json()).then(data=>{
-                        this.fullname = JSON.parse(data)['fullname']
+                        if (data['err'] == null){
+                            this.fullname = JSON.parse(data)['fullname']
+                        }else{
+                            const toast = useToast()
+                            toast.info(data)
+                            localStorage.clear()
+                            location.replace('/')
+                        }
                     })
             },
           

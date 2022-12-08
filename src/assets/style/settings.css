@@ -10,7 +10,7 @@
 }
 .window{
     margin: auto;
-    width: 14%;
+    width: 15%;
     background-color: white;
     border-radius: 13px;
     box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.129);
@@ -49,6 +49,9 @@
 .exitSet{
     margin-top: 20px;
     background: linear-gradient(to bottom right, #d7d7d7, #444444);
+}
+.mobile_form{
+    width: 100%;
 }
 @media screen and (max-width:700px) {
     .back{

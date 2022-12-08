@@ -5,7 +5,7 @@
     border-radius: 13px;
     margin-right: 1%;
     padding: 0.5%;
-    box-shadow: 0 0 2px 2px #00000026;
+    box-shadow: 0 0 8px 0px #00000026;
 }
 .btn_reg_home{
     cursor: pointer;
@@ -38,19 +38,27 @@
 .btn_create{
     padding: 1%;
     border-radius: 7px;
-    background: linear-gradient(to bottom right, #F2B441, #ffa887);
+    background: linear-gradient(to bottom right, #b8e994, #079992);
     min-width: 100px;
     border: 0;
     cursor: pointer;
     color: white;
     font-family: 'Didact Gothic', sans-serif;
     font-size: 18px;
+    height: 100%;
 }
 .controll_panel{
-    width: 100%;
+    width: 98%;
+    height: 50px;
     display: inline-flex;
     justify-content: space-between;
     align-items: center;
+    background-color: #ffffff00;
+    padding: 1%;
+    margin: auto;
+    border-radius: 12px;
+    margin-top: 10px;
+    box-shadow: 0 0 10px 0px #0000001f;
 }
 .myRooms{
     width: 100%;
@@ -74,7 +82,14 @@
     font-size: 18px;
 }
 .icon_room{
-    height: 50%;
+    height: 48%;
+    width: 100%;
+    display: inline-flex;
+    justify-content: space-between;
+    position: relative;
+}
+.icon_room img{
+    height: 100%;
 }
 .information_room{
     height: 50%;
@@ -208,11 +223,66 @@
 .iconCreate{
     height: 450px;overflow: scroll;border-radius: 13px;
 }
+.man img{
+    width: 72%;
+}
+.man{
+    width: 24px;
+    height: 24px;
+    padding: 2%;
+    margin: 13%;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 0 5px 0 #1a955661;
+}
+.push{
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.mobile_place_holder{
+    display: none;
+}
+.place_holder_text_desc{
+    font-size: 12px;
+    margin: 0;
+}
 /* Оптимизация */
 @media only screen and (max-width: 600px) {
+    .mobile_place_holder{
+        display: block;
+        width: 90%;
+        height: 50px;
+        margin: auto;
+        margin-top: 20px;
+    }
+    .place_holder{
+        width: 100%;
+        height: 100%;
+        border-radius: 13px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+    }
+    .mobile_place_holder a{
+        text-decoration: none;
+        color: white;
+    }
+    .place_holder_text{
+        font-size: 20px;
+        text-align: center;
+        margin: 0;
+    }
     .ogr_rooms{
         width: 100%;
-   }
+    }
+
    .createRoom{
         display: none;
         overflow-y: scroll;
@@ -248,14 +318,14 @@
     height: 130px;
     padding: 3%;
     margin: 1%;
-    width: 140px;
-    min-width: 140px;
+    width: 130px;
+    min-width: 130px;
    }
    .icon_room img{
         width: 35%;
    }
    .icon_room{
-        height: 40%;
+        height: 37%;
    }
    .information_room{
         height: 60%;
@@ -270,5 +340,16 @@
    }
    .iconCreate{
     height: 300px;
+   }
+   .controll_panel{
+    width: 88%;
+    padding: 2%;
+   }
+   .listRooms{
+        display: inline-flex;
+        width: 90%;
+        margin: auto;
+        overflow: scroll;
+        padding: 2%;
    }
 }
